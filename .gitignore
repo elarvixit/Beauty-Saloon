@@ -1,2 +1,8 @@
 # Local Claude preview config
 .claude/
+
+# Secrets & Vercel local state
+.env
+.env.*
+!.env.example
+.vercel/

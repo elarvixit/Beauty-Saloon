@@ -461,6 +461,9 @@ em { font-style: italic; }
 }
 .field.is-invalid input, .field.is-invalid select { border-color: #c47a6a; }
 .booking__form .btn { margin-top: 26px; }
+.booking__form .btn:disabled { opacity: .6; cursor: wait; }
+.form-msg.is-error { color: #e0a092; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 .form-msg { min-height: 24px; font-size: 14px; color: var(--gold-2); text-align: center; }
 
 /* ---------- Footer ---------- */

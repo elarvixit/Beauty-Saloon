@@ -327,6 +327,8 @@
           <textarea id="notes" name="notes" rows="3" placeholder=" "></textarea>
           <label for="notes">Notes for your artist</label>
         </div>
+        <!-- Honeypot field for bots; hidden from people -->
+        <input type="text" name="company" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <button type="submit" class="btn btn--gold btn--block">Request Appointment</button>
         <p class="form-msg" id="formMsg" role="status"></p>
       </form>

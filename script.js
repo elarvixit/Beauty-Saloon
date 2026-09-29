@@ -76,9 +76,25 @@ startTimer();
 const dateInput = document.getElementById("date");
 dateInput.min = new Date().toISOString().split("T")[0];
 
+const postJSON = async (url, data) => {
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  const body = await res.json().catch(() => ({}));
+  if (!res.ok) throw Object.assign(new Error(body.error || "Something went wrong. Please try again or call us."), { fields: body.fields });
+  return body;
+};
+
 const form = document.getElementById("bookingForm");
 const msg = document.getElementById("formMsg");
-form.addEventListener("submit", (e) => {
+const setMsg = (text, isError = false) => {
+  msg.textContent = text;
+  msg.classList.toggle("is-error", isError);
+};
+
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
   let valid = true;
   form.querySelectorAll("[required]").forEach((field) => {
@@ -86,21 +102,44 @@ form.addEventListener("submit", (e) => {
     field.closest(".field").classList.toggle("is-invalid", !ok);
     if (!ok) valid = false;
   });
-  if (!valid) {
-    msg.textContent = "Please complete the highlighted fields.";
-    return;
+  if (!valid) return setMsg("Please complete the highlighted fields.", true);
+
+  const data = Object.fromEntries(new FormData(form));
+  const button = form.querySelector('button[type="submit"]');
+  button.disabled = true;
+  setMsg("Sending your request…");
+
+  try {
+    await postJSON("/api/booking", data);
+    const name = data.name.trim().split(" ")[0];
+    setMsg(`Thank you, ${name}. Our concierge will be in touch within two hours.`);
+    form.reset();
+  } catch (err) {
+    Object.keys(err.fields || {}).forEach((key) => {
+      form.elements[key]?.closest(".field")?.classList.add("is-invalid");
+    });
+    setMsg(err.message, true);
+  } finally {
+    button.disabled = false;
   }
-  const name = form.elements.name.value.trim().split(" ")[0];
-  msg.textContent = `Thank you, ${name}. Our concierge will be in touch within two hours.`;
-  form.reset();
 });
 
 // Newsletter
-document.getElementById("newsletter").addEventListener("submit", (e) => {
+document.getElementById("newsletter").addEventListener("submit", async (e) => {
   e.preventDefault();
   const input = e.target.querySelector("input");
-  input.value = "";
-  input.placeholder = "Welcome to the Maison ✦";
+  const button = e.target.querySelector("button");
+  button.disabled = true;
+  try {
+    await postJSON("/api/newsletter", { email: input.value });
+    input.value = "";
+    input.placeholder = "Welcome to the Maison ✦";
+  } catch (err) {
+    input.value = "";
+    input.placeholder = err.message;
+  } finally {
+    button.disabled = false;
+  }
 });
 
 // Footer year
