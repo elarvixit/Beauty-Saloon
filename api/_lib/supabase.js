@@ -3,8 +3,8 @@
 
 const crypto = require("crypto");
 
-const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const SUPABASE_URL = (process.env.SUPABASE_URL || "").trim();
+const SUPABASE_SERVICE_ROLE_KEY = (process.env.SUPABASE_SERVICE_ROLE_KEY || "").trim();
 
 const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
@@ -16,14 +16,20 @@ async function request(table, { method = "GET", params = {}, body, prefer = [] }
   const url = new URL(`/rest/v1/${table}`, SUPABASE_URL);
   Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v));
 
+  const headers = {
+    apikey: SUPABASE_SERVICE_ROLE_KEY,
+    "Content-Type": "application/json",
+  };
+  // Legacy service_role keys are JWTs and go in Authorization too.
+  // New secret keys (sb_secret_...) are not JWTs and must only be sent as apikey.
+  if (SUPABASE_SERVICE_ROLE_KEY.startsWith("eyJ")) {
+    headers.Authorization = `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`;
+  }
+  if (prefer.length) headers.Prefer = prefer.join(",");
+
   const res = await fetch(url, {
     method,
-    headers: {
-      apikey: SUPABASE_SERVICE_ROLE_KEY,
-      Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
-      "Content-Type": "application/json",
-      ...(prefer.length && { Prefer: prefer.join(",") }),
-    },
+    headers,
     body: body === undefined ? undefined : JSON.stringify(body),
   });
 
