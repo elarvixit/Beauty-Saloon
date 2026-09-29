@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maison Élan — Luxury Beauty Salon</title>
+  <meta name="description" content="Maison Élan is a luxury beauty salon offering couture hair, skin rituals, bridal artistry and nail atelier services." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Preloader -->
+  <div class="preloader" id="preloader">
+    <div class="preloader__mark">
+      <span>M</span><em>É</em>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#top" class="nav__logo">Maison <em>Élan</em></a>
+      <nav class="nav__links" id="navLinks">
+        <a href="#about">The Maison</a>
+        <a href="#services">Services</a>
+        <a href="#experience">Rituals</a>
+        <a href="#artists">Artists</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#booking" class="nav__cta-mobile">Reserve</a>
+      </nav>
+      <a href="#booking" class="btn btn--outline nav__cta">Reserve</a>
+      <button class="nav__toggle" id="navToggle" aria-label="Open menu"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="top">
+    <div class="hero__media">
+      <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=2000&q=80" alt="Interior of Maison Élan salon" />
+    </div>
+    <div class="hero__veil"></div>
+    <div class="hero__content">
+      <p class="eyebrow reveal">Est. 2012 &nbsp;·&nbsp; Atelier de Beauté</p>
+      <h1 class="hero__title reveal">
+        <span>The art of</span>
+        <em>quiet luxury</em>
+      </h1>
+      <p class="hero__lede reveal">Couture hair, skin rituals and bespoke artistry — composed with intention, delivered in an atmosphere of calm.</p>
+      <div class="hero__actions reveal">
+        <a href="#booking" class="btn btn--gold">Book an Appointment</a>
+        <a href="#services" class="link-arrow">Explore Services <span>→</span></a>
+      </div>
+    </div>
+    <div class="hero__meta">
+      <div><strong>4.9</strong><span>Guest rating</span></div>
+      <div><strong>12+</strong><span>Years of craft</span></div>
+      <div><strong>18</strong><span>Master artists</span></div>
+    </div>
+    <a href="#about" class="hero__scroll" aria-label="Scroll down"><span></span></a>
+  </section>
+
+  <!-- Marquee -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span>Couture Hair</span><i>✦</i><span>Skin Rituals</span><i>✦</i><span>Bridal Artistry</span><i>✦</i><span>Nail Atelier</span><i>✦</i><span>Colour Studio</span><i>✦</i><span>Brow &amp; Lash</span><i>✦</i>
+      <span>Couture Hair</span><i>✦</i><span>Skin Rituals</span><i>✦</i><span>Bridal Artistry</span><i>✦</i><span>Nail Atelier</span><i>✦</i><span>Colour Studio</span><i>✦</i><span>Brow &amp; Lash</span><i>✦</i>
+    </div>
+  </div>
+
+  <!-- About -->
+  <section class="about section" id="about">
+    <div class="container about__grid">
+      <div class="about__images">
+        <figure class="about__img about__img--main reveal">
+          <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=1000&q=80" alt="Stylist working on a client's hair" loading="lazy" />
+        </figure>
+        <figure class="about__img about__img--accent reveal">
+          <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=700&q=80" alt="Facial skincare treatment" loading="lazy" />
+        </figure>
+        <div class="about__badge reveal">
+          <svg viewBox="0 0 200 200" class="about__badge-ring">
+            <defs><path id="circle" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" /></defs>
+            <text><textPath href="#circle">Maison Élan · Atelier de Beauté · Paris · London ·</textPath></text>
+          </svg>
+          <span class="about__badge-core">ME</span>
+        </div>
+      </div>
+      <div class="about__text">
+        <p class="eyebrow reveal">The Maison</p>
+        <h2 class="section-title reveal">Where beauty is <em>considered</em>, never rushed.</h2>
+        <p class="reveal">Maison Élan was founded on a simple belief: true beauty is revealed, not applied. Each visit begins with a private consultation, where our artists study your features, lifestyle and ambitions before a single tool is lifted.</p>
+        <p class="reveal">Inside our sunlit atelier you'll find hand-selected formulations from the finest houses of France, Italy and Japan, served alongside champagne, rare teas and an unhurried pace.</p>
+        <div class="about__signature reveal">
+          <div>
+            <span class="script">Isabelle Laurent</span>
+            <small>Founder &amp; Creative Director</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="services section" id="services">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow reveal">The Menu</p>
+        <h2 class="section-title reveal">Services <em>&amp;</em> Investment</h2>
+        <p class="section-sub reveal">Every service includes a personal consultation, a signature scalp or hand massage, and complimentary refreshments.</p>
+      </div>
+
+      <div class="tabs reveal" role="tablist">
+        <button class="tab is-active" data-tab="hair" role="tab">Hair</button>
+        <button class="tab" data-tab="skin" role="tab">Skin</button>
+        <button class="tab" data-tab="makeup" role="tab">Makeup</button>
+        <button class="tab" data-tab="nails" role="tab">Nails</button>
+      </div>
+
+      <div class="menu">
+        <div class="menu__panel is-active" data-panel="hair">
+          <div class="menu__image"><img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=900&q=80" alt="Hair styling" loading="lazy" /></div>
+          <ul class="menu__list">
+            <li><div><h4>Signature Cut &amp; Finish</h4><p>Precision cut, bespoke treatment and blow-dry</p></div><span class="price">$145</span></li>
+            <li><div><h4>Balayage Couture</h4><p>Hand-painted dimension with gloss and bond repair</p></div><span class="price">$320</span></li>
+            <li><div><h4>Global Colour</h4><p>Root-to-tip colour with Italian pigments</p></div><span class="price">$210</span></li>
+            <li><div><h4>Silk Keratin Ritual</h4><p>Smoothing treatment for lasting luminosity</p></div><span class="price">$380</span></li>
+            <li><div><h4>Editorial Styling</h4><p>Red-carpet waves, updos and occasion hair</p></div><span class="price">$120</span></li>
+          </ul>
+        </div>
+        <div class="menu__panel" data-panel="skin">
+          <div class="menu__image"><img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=900&q=80" alt="Facial treatment" loading="lazy" /></div>
+          <ul class="menu__list">
+            <li><div><h4>The Élan Facial</h4><p>90-minute lifting and sculpting ritual</p></div><span class="price">$260</span></li>
+            <li><div><h4>Hydra Radiance</h4><p>Deep cleanse, infusion and LED therapy</p></div><span class="price">$190</span></li>
+            <li><div><h4>24K Gold Renewal</h4><p>Collagen mask with gold-leaf serum</p></div><span class="price">$340</span></li>
+            <li><div><h4>Gua Sha Sculpt</h4><p>Lymphatic drainage with jade and rose quartz</p></div><span class="price">$150</span></li>
+            <li><div><h4>Back Ritual</h4><p>Purifying exfoliation and hot-stone massage</p></div><span class="price">$130</span></li>
+          </ul>
+        </div>
+        <div class="menu__panel" data-panel="makeup">
+          <div class="menu__image"><img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?auto=format&fit=crop&w=900&q=80" alt="Makeup artistry" loading="lazy" /></div>
+          <ul class="menu__list">
+            <li><div><h4>Bridal Artistry</h4><p>Trial session plus wedding-day application</p></div><span class="price">$650</span></li>
+            <li><div><h4>Evening Glamour</h4><p>Full-face artistry with lashes</p></div><span class="price">$180</span></li>
+            <li><div><h4>Soft Luminous Look</h4><p>Natural, skin-first daytime makeup</p></div><span class="price">$125</span></li>
+            <li><div><h4>Brow Architecture</h4><p>Mapping, shaping and tint</p></div><span class="price">$85</span></li>
+            <li><div><h4>Private Masterclass</h4><p>One-to-one lesson with a senior artist</p></div><span class="price">$290</span></li>
+          </ul>
+        </div>
+        <div class="menu__panel" data-panel="nails">
+          <div class="menu__image"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=900&q=80" alt="Manicure" loading="lazy" /></div>
+          <ul class="menu__list">
+            <li><div><h4>Atelier Manicure</h4><p>Cuticle care, shaping and couture polish</p></div><span class="price">$75</span></li>
+            <li><div><h4>Gel Couture</h4><p>Long-wear gel with hand-painted detail</p></div><span class="price">$95</span></li>
+            <li><div><h4>Spa Pedicure</h4><p>Mineral soak, exfoliation and massage</p></div><span class="price">$110</span></li>
+            <li><div><h4>Nail Art Studio</h4><p>Bespoke designs, chrome and gold-leaf</p></div><span class="price">from $40</span></li>
+            <li><div><h4>Paraffin Ritual</h4><p>Warm paraffin wrap for silken hands</p></div><span class="price">$45</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section class="experience" id="experience">
+    <div class="experience__bg">
+      <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=crop&w=2000&q=80" alt="" loading="lazy" />
+    </div>
+    <div class="experience__veil"></div>
+    <div class="container experience__inner">
+      <div class="experience__intro">
+        <p class="eyebrow reveal">Signature Rituals</p>
+        <h2 class="section-title reveal">An afternoon, <em>entirely yours.</em></h2>
+        <p class="reveal">Our curated rituals combine multiple disciplines into a single, seamless experience in a private suite.</p>
+      </div>
+      <div class="rituals">
+        <article class="ritual reveal">
+          <span class="ritual__num">01</span>
+          <h3>The Golden Hour</h3>
+          <p>Élan Facial, signature cut &amp; finish and atelier manicure, served with Champagne.</p>
+          <div class="ritual__foot"><span>3.5 hours</span><strong>$495</strong></div>
+        </article>
+        <article class="ritual ritual--featured reveal">
+          <span class="ritual__tag">Most Loved</span>
+          <span class="ritual__num">02</span>
+          <h3>The Bridal Suite</h3>
+          <p>A private suite for you and four companions — hair, makeup, nails and a curated grazing table.</p>
+          <div class="ritual__foot"><span>Full day</span><strong>$1,850</strong></div>
+        </article>
+        <article class="ritual reveal">
+          <span class="ritual__num">03</span>
+          <h3>The Renewal</h3>
+          <p>24K gold facial, silk keratin ritual and spa pedicure for complete restoration.</p>
+          <div class="ritual__foot"><span>4 hours</span><strong>$690</strong></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Artists -->
+  <section class="artists section" id="artists">
+    <div class="container">
+      <div class="section-head section-head--split">
+        <div>
+          <p class="eyebrow reveal">The Artists</p>
+          <h2 class="section-title reveal">Masters of <em>their craft</em></h2>
+        </div>
+        <p class="section-sub reveal">Trained in Paris, Milan and Tokyo, our artists bring decades of editorial and runway experience to every chair.</p>
+      </div>
+      <div class="artists__grid">
+        <article class="artist reveal">
+          <div class="artist__img"><img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=700&q=80" alt="Portrait of Isabelle Laurent" loading="lazy" /></div>
+          <h3>Isabelle Laurent</h3><p>Creative Director · Colour</p>
+        </article>
+        <article class="artist reveal">
+          <div class="artist__img"><img src="https://images.unsplash.com/photo-1595959183082-7b570b7e08e2?auto=format&fit=crop&w=700&q=80" alt="Portrait of Sofia Marchetti" loading="lazy" /></div>
+          <h3>Sofia Marchetti</h3><p>Senior Stylist · Cutting</p>
+        </article>
+        <article class="artist reveal">
+          <div class="artist__img"><img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=700&q=80" alt="Portrait of Amara Okafor" loading="lazy" /></div>
+          <h3>Amara Okafor</h3><p>Lead Makeup Artist · Bridal</p>
+        </article>
+        <article class="artist reveal">
+          <div class="artist__img"><img src="https://images.unsplash.com/photo-1614283233556-f35b0c801ef1?auto=format&fit=crop&w=700&q=80" alt="Portrait of Yuki Tanaka" loading="lazy" /></div>
+          <h3>Yuki Tanaka</h3><p>Skin Therapist · Facials</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery section" id="gallery">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow reveal">The Lookbook</p>
+        <h2 class="section-title reveal">Moments of <em>élan</em></h2>
+      </div>
+      <div class="gallery__grid">
+        <figure class="g g--tall reveal"><img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=crop&w=800&q=80" alt="Makeup look" loading="lazy" /></figure>
+        <figure class="g reveal"><img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80" alt="Hair styling session" loading="lazy" /></figure>
+        <figure class="g reveal"><img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=800&q=80" alt="Nail art" loading="lazy" /></figure>
+        <figure class="g g--wide reveal"><img src="https://images.unsplash.com/photo-1600948836101-f9ffda59d250?auto=format&fit=crop&w=1200&q=80" alt="Salon interior" loading="lazy" /></figure>
+        <figure class="g g--tall reveal"><img src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?auto=format&fit=crop&w=800&q=80" alt="Beauty portrait" loading="lazy" /></figure>
+        <figure class="g reveal"><img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=800&q=80" alt="Facial treatment" loading="lazy" /></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials section">
+    <div class="container testimonials__inner">
+      <p class="eyebrow reveal">Kind Words</p>
+      <div class="quote-slider reveal" id="quoteSlider">
+        <blockquote class="quote is-active">
+          <p>“The most serene two hours of my month. I leave Maison Élan feeling not just beautiful, but genuinely restored.”</p>
+          <cite>Charlotte W. — Guest since 2016</cite>
+        </blockquote>
+        <blockquote class="quote">
+          <p>“Amara created the bridal look I'd dreamed of, and somehow made the morning of my wedding the calmest part of the day.”</p>
+          <cite>Priya S. — Bridal Suite</cite>
+        </blockquote>
+        <blockquote class="quote">
+          <p>“Isabelle understands colour like a painter. Years later, I still get stopped in the street and asked who does my hair.”</p>
+          <cite>Elena R. — Balayage Couture</cite>
+        </blockquote>
+      </div>
+      <div class="quote-dots" id="quoteDots">
+        <button class="is-active" aria-label="Testimonial 1"></button>
+        <button aria-label="Testimonial 2"></button>
+        <button aria-label="Testimonial 3"></button>
+      </div>
+      <div class="press reveal">
+        <span>VOGUE</span><span>ELLE</span><span>Harper's BAZAAR</span><span>ALLURE</span><span>TATLER</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking -->
+  <section class="booking section" id="booking">
+    <div class="container booking__grid">
+      <div class="booking__info">
+        <p class="eyebrow reveal">Reservations</p>
+        <h2 class="section-title reveal">Reserve your <em>moment</em></h2>
+        <p class="reveal">Request an appointment below and our concierge will confirm within two hours. For same-day bookings, please call us directly.</p>
+        <ul class="booking__details reveal">
+          <li><small>Visit</small><span>24 Rue de la Paix, Suite 3<br />Mayfair, London W1K</span></li>
+          <li><small>Call</small><span><a href="tel:+442071234567">+44 20 7123 4567</a></span></li>
+          <li><small>Hours</small><span>Tue – Sat · 9:00 – 20:00<br />Sun · 10:00 – 17:00</span></li>
+        </ul>
+      </div>
+      <form class="booking__form reveal" id="bookingForm" novalidate>
+        <div class="field">
+          <input type="text" id="name" name="name" placeholder=" " required />
+          <label for="name">Full Name</label>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <input type="email" id="email" name="email" placeholder=" " required />
+            <label for="email">Email</label>
+          </div>
+          <div class="field">
+            <input type="tel" id="phone" name="phone" placeholder=" " />
+            <label for="phone">Phone</label>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field field--select">
+            <select id="service" name="service" required>
+              <option value="" disabled selected hidden></option>
+              <option>Hair</option>
+              <option>Skin</option>
+              <option>Makeup</option>
+              <option>Nails</option>
+              <option>Signature Ritual</option>
+            </select>
+            <label for="service">Service</label>
+          </div>
+          <div class="field">
+            <input type="date" id="date" name="date" required />
+            <label for="date" class="is-fixed">Preferred Date</label>
+          </div>
+        </div>
+        <div class="field">
+          <textarea id="notes" name="notes" rows="3" placeholder=" "></textarea>
+          <label for="notes">Notes for your artist</label>
+        </div>
+        <button type="submit" class="btn btn--gold btn--block">Request Appointment</button>
+        <p class="form-msg" id="formMsg" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__top">
+        <a href="#top" class="footer__logo">Maison <em>Élan</em></a>
+        <form class="newsletter" id="newsletter">
+          <label for="nl">Join the Maison — private offers &amp; seasonal notes</label>
+          <div class="newsletter__row">
+            <input type="email" id="nl" placeholder="Your email address" required />
+            <button type="submit" aria-label="Subscribe">→</button>
+          </div>
+        </form>
+      </div>
+      <div class="footer__cols">
+        <div><h5>Explore</h5><a href="#about">The Maison</a><a href="#services">Services</a><a href="#experience">Rituals</a><a href="#gallery">Gallery</a></div>
+        <div><h5>Care</h5><a href="#">Gift Cards</a><a href="#">Membership</a><a href="#">Policies</a><a href="#">Careers</a></div>
+        <div><h5>Follow</h5><a href="#">Instagram</a><a href="#">Pinterest</a><a href="#">TikTok</a></div>
+      </div>
+      <div class="footer__bottom">
+        <span>© <span id="year"></span> Maison Élan. All rights reserved.</span>
+        <span>Crafted with intention.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
