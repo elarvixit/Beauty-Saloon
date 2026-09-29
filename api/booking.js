@@ -1,7 +1,7 @@
 // POST /api/booking — store an appointment request in saloon_bookings
 const { insertRow, readBody, clean, EMAIL_RE } = require("./_lib/supabase");
 
-const SERVICES = ["Hair", "Skin", "Makeup", "Nails", "Signature Ritual"];
+const SERVICES = ["Hair", "Skin", "Makeup", "Nails", "Eyebrows", "Signature Ritual"];
 
 module.exports = async (req, res) => {
   if (req.method !== "POST") {

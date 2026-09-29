@@ -23,7 +23,7 @@ create table if not exists public.saloon_bookings (
   email           text        not null check (char_length(email) <= 254 and email = lower(email)
                                               and email ~ '^[^@\s]+@[^@\s]+\.[^@\s]+$'),
   phone           text                 check (phone is null or char_length(phone) <= 30),
-  service         text        not null check (service in ('Hair', 'Skin', 'Makeup', 'Nails', 'Signature Ritual')),
+  service         text        not null,
   preferred_date  date        not null,
   notes           text                 check (notes is null or char_length(notes) <= 1000),
   status          text        not null default 'pending'
@@ -32,6 +32,11 @@ create table if not exists public.saloon_bookings (
   created_at      timestamptz not null default now(),
   updated_at      timestamptz not null default now()
 );
+
+-- Allowed services (drop + re-add so re-running this script updates the list)
+alter table public.saloon_bookings drop constraint if exists saloon_bookings_service_check;
+alter table public.saloon_bookings add constraint saloon_bookings_service_check
+  check (service in ('Hair', 'Skin', 'Makeup', 'Nails', 'Eyebrows', 'Signature Ritual'));
 
 create index if not exists saloon_bookings_preferred_date_idx on public.saloon_bookings (preferred_date);
 create index if not exists saloon_bookings_status_idx         on public.saloon_bookings (status);
