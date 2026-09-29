@@ -8,6 +8,37 @@ const SUPABASE_SERVICE_ROLE_KEY = (process.env.SUPABASE_SERVICE_ROLE_KEY || "").
 
 const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
+// Non-secret description of the configuration, for troubleshooting from /admin
+function describeConfig() {
+  const key = SUPABASE_SERVICE_ROLE_KEY;
+  let keyType = "missing";
+  if (key.startsWith("sb_secret_")) keyType = "secret key (sb_secret_) — correct";
+  else if (key.startsWith("sb_publishable_")) keyType = "PUBLISHABLE key — wrong, use the secret / service_role key";
+  else if (key.startsWith("eyJ")) {
+    try {
+      const role = JSON.parse(Buffer.from(key.split(".")[1], "base64url").toString()).role;
+      keyType = role === "service_role"
+        ? "legacy service_role JWT — correct"
+        : `legacy JWT with role "${role}" — wrong, use the service_role key`;
+    } catch {
+      keyType = "unreadable JWT — re-copy the key";
+    }
+  } else if (key) keyType = "unrecognised format — re-copy the key";
+
+  let url = "missing";
+  if (SUPABASE_URL) {
+    try {
+      const u = new URL(SUPABASE_URL);
+      url = /\.supabase\.co$/.test(u.hostname) && (u.pathname === "/" || u.pathname === "")
+        ? `${u.origin} — looks correct`
+        : `${SUPABASE_URL} — expected https://<project-ref>.supabase.co with no path`;
+    } catch {
+      url = "invalid URL";
+    }
+  }
+  return { SUPABASE_URL: url, SUPABASE_SERVICE_ROLE_KEY: keyType };
+}
+
 async function request(table, { method = "GET", params = {}, body, prefer = [] } = {}) {
   if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
     throw new Error("Supabase environment variables are not configured");
@@ -83,4 +114,4 @@ function clean(value, max) {
   return value.trim().slice(0, max);
 }
 
-module.exports = { insertRow, selectRows, updateRows, isAdmin, readBody, clean, EMAIL_RE };
+module.exports = { insertRow, selectRows, updateRows, isAdmin, describeConfig, readBody, clean, EMAIL_RE };

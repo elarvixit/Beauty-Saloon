@@ -23,7 +23,16 @@ async function api(method = "GET", body) {
     body: body ? JSON.stringify(body) : undefined,
   });
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw Object.assign(new Error(data.error || `Request failed (${res.status})`), { status: res.status });
+  if (!res.ok) {
+    let message = data.error || `Request failed (${res.status})`;
+    if (data.detail) message += `\n\n${data.detail}`;
+    if (data.config) {
+      message += "\n\nConfiguration:\n" +
+        Object.entries(data.config).map(([k, v]) => `• ${k}: ${v}`).join("\n");
+    }
+    if (res.status === 404 && !data.error) message = "The /api/admin/bookings function isn't deployed on this site.";
+    throw Object.assign(new Error(message), { status: res.status });
+  }
   return data;
 }
 

@@ -67,3 +67,8 @@ alter table public.saloon_newsletter_subscribers enable row level security;
 
 revoke all on public.saloon_bookings               from anon, authenticated;
 revoke all on public.saloon_newsletter_subscribers from anon, authenticated;
+
+-- Make sure the server role can use the tables (not granted automatically on every project)
+grant usage on schema public to service_role;
+grant select, insert, update, delete on public.saloon_bookings               to service_role;
+grant select, insert, update, delete on public.saloon_newsletter_subscribers to service_role;

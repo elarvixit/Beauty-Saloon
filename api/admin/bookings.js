@@ -1,7 +1,7 @@
 // /api/admin/bookings — password-protected booking management
 //   GET   → list all bookings (newest first)
 //   PATCH → { id, status } update a booking's status
-const { selectRows, updateRows, isAdmin, readBody, clean } = require("../_lib/supabase");
+const { selectRows, updateRows, isAdmin, describeConfig, readBody, clean } = require("../_lib/supabase");
 
 const STATUSES = ["pending", "confirmed", "completed", "cancelled"];
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -43,6 +43,11 @@ module.exports = async (req, res) => {
     return res.status(405).json({ error: "Method not allowed" });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: "Could not reach the database." });
+    // Admin-only, so it's safe to show the real cause here
+    return res.status(500).json({
+      error: "Database error",
+      detail: err.message,
+      config: describeConfig(),
+    });
   }
 };

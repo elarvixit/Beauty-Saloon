@@ -64,7 +64,7 @@ input:focus, select:focus { border-color: var(--gold); }
 .login__card .eyebrow { margin-bottom: 18px; }
 .login__card label { text-align: left; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: var(--stone); }
 .login__card .btn { margin-top: 10px; padding: 15px; }
-.login__error { min-height: 22px; color: var(--cancelled); font-size: 14px; }
+.login__error { min-height: 22px; color: var(--cancelled); font-size: 14px; white-space: pre-wrap; word-break: break-word; text-align: left; }
 
 /* ---------- Layout ---------- */
 .topbar {
