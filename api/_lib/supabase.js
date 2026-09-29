@@ -90,17 +90,29 @@ function updateRows(table, params, changes) {
   return request(table, { method: "PATCH", params, body: changes, prefer: ["return=representation"] });
 }
 
-function safeEqual(given, expected) {
-  if (!expected || typeof given !== "string") return false;
-  const a = crypto.createHash("sha256").update(given).digest();
-  const b = crypto.createHash("sha256").update(expected).digest();
-  return crypto.timingSafeEqual(a, b);
+// Temporary built-in admin login, used only when ADMIN_USERNAME / ADMIN_PASSWORD
+// are not set in Vercel. Only the SHA-256 of the password is stored here.
+const DEFAULT_ADMIN_USERNAME = "admin";
+const DEFAULT_ADMIN_PASSWORD_SHA256 = "20139f34d9d4e3f9f458f8df05e0b7651aa7d7ba72a26821b410df59270752d2";
+
+const sha256 = (s) => crypto.createHash("sha256").update(s).digest();
+
+function safeEqualHash(given, expectedHash) {
+  if (typeof given !== "string" || !given) return false;
+  return crypto.timingSafeEqual(sha256(given), expectedHash);
 }
 
-// Checks x-admin-user / x-admin-password headers against ADMIN_USERNAME / ADMIN_PASSWORD
+// Checks x-admin-user / x-admin-password headers against the configured login
 function isAdmin(req) {
-  const userOk = safeEqual(req.headers["x-admin-user"], (process.env.ADMIN_USERNAME || "").trim());
-  const passOk = safeEqual(req.headers["x-admin-password"], process.env.ADMIN_PASSWORD);
+  const envUser = (process.env.ADMIN_USERNAME || "").trim();
+  const envPass = process.env.ADMIN_PASSWORD || "";
+  const useEnv = envUser && envPass;
+
+  const userHash = sha256(useEnv ? envUser : DEFAULT_ADMIN_USERNAME);
+  const passHash = useEnv ? sha256(envPass) : Buffer.from(DEFAULT_ADMIN_PASSWORD_SHA256, "hex");
+
+  const userOk = safeEqualHash(req.headers["x-admin-user"], userHash);
+  const passOk = safeEqualHash(req.headers["x-admin-password"], passHash);
   return userOk && passOk;
 }
 
