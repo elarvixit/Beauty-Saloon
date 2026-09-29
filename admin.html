@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Bookings — Maison Élan Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+  <!-- Login -->
+  <main class="login" id="loginView">
+    <form class="login__card" id="loginForm">
+      <a href="/" class="brand">Maison <em>Élan</em></a>
+      <p class="eyebrow">Concierge Desk</p>
+      <label for="password">Admin password</label>
+      <input type="password" id="password" autocomplete="current-password" required autofocus />
+      <button type="submit" class="btn">Sign in</button>
+      <p class="login__error" id="loginError" role="alert"></p>
+    </form>
+  </main>
+
+  <!-- Dashboard -->
+  <div class="app" id="appView" hidden>
+    <header class="topbar">
+      <a href="/" class="brand">Maison <em>Élan</em></a>
+      <div class="topbar__actions">
+        <span class="topbar__updated" id="lastUpdated"></span>
+        <button class="btn btn--ghost" id="refreshBtn">Refresh</button>
+        <button class="btn btn--ghost" id="logoutBtn">Sign out</button>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <div class="page-head">
+        <div>
+          <p class="eyebrow">Concierge Desk</p>
+          <h1>Bookings</h1>
+        </div>
+      </div>
+
+      <section class="stats" id="stats">
+        <button class="stat" data-filter-status=""><span>Total</span><strong id="statTotal">–</strong></button>
+        <button class="stat stat--pending" data-filter-status="pending"><span>Pending</span><strong id="statPending">–</strong></button>
+        <button class="stat" data-filter-when="upcoming"><span>Upcoming</span><strong id="statUpcoming">–</strong></button>
+        <button class="stat" data-filter-when="today"><span>Today</span><strong id="statToday">–</strong></button>
+      </section>
+
+      <section class="filters">
+        <input type="search" id="search" placeholder="Search name, email, phone or notes…" />
+        <select id="filterStatus">
+          <option value="">All statuses</option>
+          <option value="pending">Pending</option>
+          <option value="confirmed">Confirmed</option>
+          <option value="completed">Completed</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+        <select id="filterService">
+          <option value="">All services</option>
+          <option>Hair</option>
+          <option>Skin</option>
+          <option>Makeup</option>
+          <option>Nails</option>
+          <option>Signature Ritual</option>
+        </select>
+        <select id="filterWhen">
+          <option value="">Any date</option>
+          <option value="today">Today</option>
+          <option value="upcoming">Upcoming</option>
+          <option value="past">Past</option>
+        </select>
+        <select id="sortBy">
+          <option value="created">Newest requests</option>
+          <option value="date-asc">Appointment date ↑</option>
+          <option value="date-desc">Appointment date ↓</option>
+        </select>
+        <button class="btn btn--ghost" id="exportBtn">Export CSV</button>
+      </section>
+
+      <p class="result-count" id="resultCount"></p>
+
+      <div class="table-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Guest</th>
+              <th>Service</th>
+              <th>Appointment</th>
+              <th>Notes</th>
+              <th>Requested</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+        <div class="empty" id="empty" hidden>No bookings match these filters.</div>
+        <div class="empty" id="loading">Loading bookings…</div>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
