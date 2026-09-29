@@ -17,8 +17,10 @@
     <form class="login__card" id="loginForm">
       <a href="/" class="brand">Maison <em>Élan</em></a>
       <p class="eyebrow">Concierge Desk</p>
-      <label for="password">Admin password</label>
-      <input type="password" id="password" autocomplete="current-password" required autofocus />
+      <label for="username">User ID</label>
+      <input type="text" id="username" autocomplete="username" autocapitalize="off" spellcheck="false" required autofocus />
+      <label for="password">Password</label>
+      <input type="password" id="password" autocomplete="current-password" required />
       <button type="submit" class="btn">Sign in</button>
       <p class="login__error" id="loginError" role="alert"></p>
     </form>

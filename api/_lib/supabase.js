@@ -90,14 +90,18 @@ function updateRows(table, params, changes) {
   return request(table, { method: "PATCH", params, body: changes, prefer: ["return=representation"] });
 }
 
-// Compares the x-admin-password header with ADMIN_PASSWORD in constant time
-function isAdmin(req) {
-  const expected = process.env.ADMIN_PASSWORD;
-  const given = req.headers["x-admin-password"];
+function safeEqual(given, expected) {
   if (!expected || typeof given !== "string") return false;
   const a = crypto.createHash("sha256").update(given).digest();
   const b = crypto.createHash("sha256").update(expected).digest();
   return crypto.timingSafeEqual(a, b);
+}
+
+// Checks x-admin-user / x-admin-password headers against ADMIN_USERNAME / ADMIN_PASSWORD
+function isAdmin(req) {
+  const userOk = safeEqual(req.headers["x-admin-user"], (process.env.ADMIN_USERNAME || "").trim());
+  const passOk = safeEqual(req.headers["x-admin-password"], process.env.ADMIN_PASSWORD);
+  return userOk && passOk;
 }
 
 function readBody(req) {

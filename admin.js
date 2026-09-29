@@ -1,17 +1,19 @@
 // Maison Élan — Admin bookings dashboard
 
 const API = "/api/admin/bookings";
-const STORAGE_KEY = "saloon_admin_pw";
+const STORAGE_KEY = "saloon_admin_session";
 const STATUSES = ["pending", "confirmed", "completed", "cancelled"];
+const AUTO_REFRESH_MS = 60 * 1000;
 
 const $ = (id) => document.getElementById(id);
 let bookings = [];
-let password = "";
+let creds = null; // { user, password }
+let refreshTimer;
 
 // ---------- Storage (session only; cleared when the tab closes) ----------
 const store = {
-  get: () => { try { return sessionStorage.getItem(STORAGE_KEY) || ""; } catch { return ""; } },
-  set: (v) => { try { sessionStorage.setItem(STORAGE_KEY, v); } catch {} },
+  get: () => { try { return JSON.parse(sessionStorage.getItem(STORAGE_KEY)); } catch { return null; } },
+  set: (v) => { try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(v)); } catch {} },
   clear: () => { try { sessionStorage.removeItem(STORAGE_KEY); } catch {} },
 };
 
@@ -19,7 +21,12 @@ const store = {
 async function api(method = "GET", body) {
   const res = await fetch(API, {
     method,
-    headers: { "Content-Type": "application/json", "x-admin-password": password },
+    cache: "no-store",
+    headers: {
+      "Content-Type": "application/json",
+      "x-admin-user": creds?.user || "",
+      "x-admin-password": creds?.password || "",
+    },
     body: body ? JSON.stringify(body) : undefined,
   });
   const data = await res.json().catch(() => ({}));
@@ -64,17 +71,20 @@ function toast(message, isError = false) {
 function showApp(show) {
   $("loginView").hidden = show;
   $("appView").hidden = !show;
+  clearInterval(refreshTimer);
+  // Keep the list in sync with the table while the page is open
+  if (show) refreshTimer = setInterval(() => { if (!document.hidden) load().catch(handleError); }, AUTO_REFRESH_MS);
 }
 
 $("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const btn = e.target.querySelector("button");
-  password = $("password").value;
+  creds = { user: $("username").value.trim(), password: $("password").value };
   btn.disabled = true;
   $("loginError").textContent = "";
   try {
     await load();
-    store.set(password);
+    store.set(creds);
     showApp(true);
   } catch (err) {
     $("loginError").textContent = err.message;
@@ -85,10 +95,15 @@ $("loginForm").addEventListener("submit", async (e) => {
 
 $("logoutBtn").addEventListener("click", () => {
   store.clear();
-  password = "";
+  creds = null;
   bookings = [];
   $("password").value = "";
   showApp(false);
+});
+
+// Reload when returning to the tab so the list is never stale
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden && creds && !$("appView").hidden) load().catch(handleError);
 });
 
 // ---------- Data ----------
@@ -241,13 +256,13 @@ $("exportBtn").addEventListener("click", () => {
 
 // ---------- Boot ----------
 (async () => {
-  password = store.get();
-  if (!password) return;
+  creds = store.get();
+  if (!creds?.user || !creds?.password) return (creds = null);
   try {
     await load();
     showApp(true);
   } catch (err) {
     store.clear();
-    password = "";
+    creds = null;
   }
 })();

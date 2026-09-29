@@ -9,12 +9,13 @@ const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
 module.exports = async (req, res) => {
   res.setHeader("Cache-Control", "no-store");
 
-  if (!process.env.ADMIN_PASSWORD) {
-    return res.status(500).json({ error: "ADMIN_PASSWORD is not configured on the server." });
+  const missing = ["ADMIN_USERNAME", "ADMIN_PASSWORD"].filter((k) => !process.env[k]);
+  if (missing.length) {
+    return res.status(500).json({ error: `${missing.join(" and ")} not configured in Vercel environment variables.` });
   }
   if (!isAdmin(req)) {
     await new Promise((r) => setTimeout(r, 600)); // slow down password guessing
-    return res.status(401).json({ error: "Incorrect password." });
+    return res.status(401).json({ error: "Incorrect user ID or password." });
   }
 
   try {
